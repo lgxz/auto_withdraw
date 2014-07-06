@@ -79,14 +79,17 @@ class CHuobi(object):
             return None
 
         data = {'amt': amount, 'pwd': self._password2}
+        amount = float(amount)
 
         if coin == 'btc':
             data['my_channel_id'] = self._withdraw_btc_addr
             data['btc_fast_track'] = 1
             data['fee_type'] = 0
+            data['amt_new'] = amount + 0.0001
             action = 'btc_withdraw'
         else:
             data['my_channel_id'] = self._withdraw_ltc_addr
+            data['amt_new'] = amount + 0.001
             action = 'ltc_withdraw'
         
         headers = {}
